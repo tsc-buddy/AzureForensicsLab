@@ -1,4 +1,3 @@
-param environmentName string
 param location string = resourceGroup().location
 @allowed([
   'npd'
@@ -56,13 +55,13 @@ param accessPolicies array = [
   }
 ]
 
-var kvName = 'kv-frsclab-${environmentType}'
+var kvName = 'kv-frlab-${uniqueString(resourceGroup().id)}'
 
 resource keyVault 'Microsoft.KeyVault/vaults@2019-09-01' = {
   name: kvName
   location: location
   tags:{
-    'environment': environmentName
+    'environment': environmentType
     'owner': 'Contoso Cyber-Sec'
   }
   properties:{

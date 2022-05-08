@@ -7,17 +7,16 @@ param location string = 'australiaeast'
   'prd'
 ])
 param environmentType string = 'dev'
-param environmentName string = 'dev'
 param objectID string = 'f00d2ad1-75c7-4eac-a030-15097fd4aa9f' // expects your AAD Object ID
 param tenantID string = '92e89507-6193-4c2c-9191-df61a104af02' //expects your tenant ID
 
 
 //Resource Group provisioning.
 resource rgCore 'Microsoft.Resources/resourceGroups@2021-01-01' = {
-  name: 'rg-bnz-foresics-lab-${environmentType}'
+  name: 'rg-foresics-lab-${uniqueString(subscription().id)}'
   location: location
   tags:{
-    'environment': environmentName
+    'environment': environmentType
     'owner': 'Contoso-Cybersec'
   }
 }
@@ -28,7 +27,6 @@ module storageLayer 'modules/storage.bicep' = {
   params: {
     location: location
     environmentType: environmentType
-    environmentName: environmentName
   }
 }
 
@@ -38,7 +36,6 @@ module loggingLayer 'modules/log.bicep' = {
   params: {
     location: location
     environmentType: environmentType
-    environmentName: environmentName
   }
 }
 
@@ -48,7 +45,6 @@ module secureVault 'modules/keyvault.bicep' = {
   params: {
     location: location
     environmentType: environmentType
-    environmentName: environmentName
     objectID: objectID
     tenantID: tenantID
   }
@@ -59,7 +55,6 @@ module automationEngine 'modules/automationEngine.bicep' = {
   params: {
     location: location
     environmentType: environmentType
-    environmentName: environmentName
     runbooks: [
       {
         runbookName: 'Windows-HybridWorker-Deployment'

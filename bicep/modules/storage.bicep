@@ -1,4 +1,4 @@
-param environmentName string
+
 param location string = resourceGroup().location
 @allowed([
   'npd'
@@ -8,18 +8,17 @@ param location string = resourceGroup().location
 ])
 param environmentType string
 
-var holdingStorageAccount = 'stfrsclab${environmentType}'
-var toolingStorageAccount = 'stfltoolstore${environmentType}'
-var diagStorageAccount = 'stfldiagstore${environmentType}'
-var storageAccountSkuName = (environmentType == 'prd') ? 'Standard_LRS' : 'Standard_LRS' //udpate values should requirements change.
+var holdingStorageAccount = 'frlab${uniqueString(resourceGroup().id)}'
+var toolingStorageAccount = 'tool${uniqueString(resourceGroup().id)}'
+var diagStorageAccount = 'diag${uniqueString(resourceGroup().id)}'
+var storageAccountSkuName = (environmentType == 'prd') ? 'Standard_GRS' : 'Standard_LRS' //udpate values should requirements change.
 
 // Azure Storage Account - Immutable Holding Store
 resource sandpitHoldingStorage 'Microsoft.Storage/storageAccounts@2021-02-01' ={
   name: holdingStorageAccount
   location: location
   tags:{
-    'environment': environmentName
-    'owner': 'Contoso-Cybersec'
+    'environment': environmentType
   }
   sku:{
     name: storageAccountSkuName
@@ -48,8 +47,7 @@ resource sandpitToolingStorage 'Microsoft.Storage/storageAccounts@2021-02-01' ={
   name: toolingStorageAccount
   location: location
   tags:{
-    'environment': environmentName
-    'owner': 'Contoso-Cybersec'
+    'environment': environmentType
   }
   sku:{
     name: storageAccountSkuName
@@ -78,8 +76,7 @@ resource diagnosticStorage 'Microsoft.Storage/storageAccounts@2021-02-01' ={
   name: diagStorageAccount
   location: location
   tags:{
-    'environment': environmentName
-    'owner': 'Contoso-Cybersec'
+    'environment': environmentType
   }
   sku:{
     name: storageAccountSkuName
