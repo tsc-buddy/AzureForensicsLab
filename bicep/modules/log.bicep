@@ -1,5 +1,4 @@
 
-param environmentName string
 param location string = resourceGroup().location
 @allowed([
   'npd'
@@ -9,13 +8,13 @@ param location string = resourceGroup().location
 ])
 param environmentType string
 
-var lawName = 'la-frsclab-${environmentType}'
+var lawName = 'la-frlab-${uniqueString(resourceGroup().id)}'
 
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2020-03-01-preview' = {
   name: lawName
   location: location
   tags: {
-    Environment: environmentName
+    Environment: environmentType
     owner: 'Contoso-Cybersec'
   }
   properties: any({

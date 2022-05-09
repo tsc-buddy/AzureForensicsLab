@@ -1,4 +1,4 @@
-param environmentName string
+
 param location string
 @allowed([
   'npd'
@@ -19,13 +19,13 @@ param sku string = 'Basic'
 })
 param runbooks array = []
 
-var autoAccountName = 'autos-frsclab-${environmentType}'
+var autoAccountName = 'auto-frlab-${uniqueString(resourceGroup().id)}'
 
 resource automationAccount 'Microsoft.Automation/automationAccounts@2020-01-13-preview' = {
   name: autoAccountName
   location: location
   tags:{
-    'environment': environmentName
+    'environment': environmentType
     'owner': 'Contoso-Cybersec'
   }
   identity: {
