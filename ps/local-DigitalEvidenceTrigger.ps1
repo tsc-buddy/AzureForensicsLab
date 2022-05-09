@@ -48,13 +48,13 @@ $ErrorActionPreference = 'Stop'
 ######################################### SOC Constants #####################################
 # Update the following constants with the values related to your environment
 # SOC Team Evidence Resources
-$destSubId = 'ab55f33f-2592-41e6-8d1c-575802f2ac32'              # The subscription containing the storage account being copied to (ex. 00112233-4455-6677-8899-aabbccddeeff)
-$destRGName = 'rg-bnz-foresics-lab-dev'             # The name of the resource group containing the storage account being copied to 
-$destSAblob = 'stfrsclabdev'             # The name of the storage account for BLOB
-$destSAfile = 'stfrsclabdev'             # The name of the storage account for FILE
-$destTempShare = 'workershare'          # The temporary file share mounted on the hybrid worker
-$destSAContainer = 'stfrsclabdev'        # The name of the container within the storage account
-$destKV = 'kv-frsclab-dev'                 # The name of the keyvault to store a copy of the BEK in the dest subscription
+$destSubId = 'xxx-xxx-xxx-xxx'              # The subscription containing the storage account being copied to (ex. 00112233-4455-6677-8899-aabbccddeeff)
+$destRGName = ''             # The name of the resource group containing the storage account being copied to 
+$destSAblob = ''             # The name of the storage account for BLOB
+$destSAfile = ''             # The name of the storage account for FILE
+$destTempShare = ''          # The temporary file share mounted on the hybrid worker
+$destSAContainer = ''        # The name of the container within the storage account
+$destKV = ''                 # The name of the keyvault to store a copy of the BEK in the dest subscription
 
 $localStoreDir = "E:\"
 $targetWindowsDir = "Z:\"               # The mapping path to the share that will contain the disk and its hash. By default the scripts assume you mounted the Azure file share on drive Z.
