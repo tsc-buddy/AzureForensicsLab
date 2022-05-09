@@ -80,12 +80,12 @@ if ($bios) {
 	Get-PSDrive
 	
 	Write-Output "Validating conectivity to Azure Storage and mapping drive."
-	$connectTestResult = Test-NetConnection -ComputerName frlabcwj2kxnziw7ea.file.core.windows.net -Port 445
+	$connectTestResult = Test-NetConnection -ComputerName STORAGEACCOUNTNAME.file.core.windows.net -Port 445
 	if ($connectTestResult.TcpTestSucceeded) {
     # Save the password so the drive will persist on reboot
-    cmd.exe /C "cmdkey /add:`"frlabcwj2kxnziw7ea.file.core.windows.net`" /user:`"localhost\frlabcwj2kxnziw7ea`" /pass:`"niDFNTBKpzJMAPCndvjtrEY+0O/knBOZQ2cYDfsBIS2MRk6NsMyAmhKGkj9Ux90aU1BpSxQLzQ6yBWfnsfoU0w==`""
+    cmd.exe /C "cmdkey /add:`"<STORAGEACCOUNTNAME>.file.core.windows.net`" /user:`"localhost\<STORAGEACCOUNTNAME>`" /pass:`"<STORAGEACCOUNTKEY>`""
     # Mount the drive
-    New-PSDrive -Name Z -PSProvider FileSystem -Root "\\frlabcwj2kxnziw7ea.file.core.windows.net\workershare" -Persist
+    New-PSDrive -Name Z -PSProvider FileSystem -Root "\\<STORAGEACCOUNTNAME>.file.core.windows.net\workershare" -Persist
 	} else {
     Write-Error -Message "Unable to reach the Azure storage account via port 445. Check to make sure your organization or ISP is not blocking port 445, or use Azure P2S VPN, Azure S2S VPN, or Express Route to tunnel SMB traffic over a different port."
 	}
