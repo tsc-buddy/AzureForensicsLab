@@ -7,8 +7,8 @@ param location string = 'australiaeast'
   'prd'
 ])
 param environmentType string = 'dev'
-param objectID string = 'f00d2ad1-75c7-4eac-a030-15097fd4aa9f' // expects your AAD Object ID
-param tenantID string = '92e89507-6193-4c2c-9191-df61a104af02' //expects your tenant ID
+param objectID string = 'xx-xx-xx-xx' // expects your AAD Object ID
+param tenantID string = 'xx-xx-xx-xx' //expects your tenant ID
 
 
 //Resource Group provisioning.
