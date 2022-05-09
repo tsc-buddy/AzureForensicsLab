@@ -18,7 +18,21 @@ This guide assumes that you already have Azure Powershell installed and ready fo
 2. Once you have pulled the repo down, navigate to the main.bicep file. You will need to update the following parameter values.
     - location  - This is the Azure region you wish to deploy to. Default is australiaeast.
     - environmentType - This is to identify what environment you are deploying into. dev,tst,uat,prd are your options.
-    - 
-3. Open up a PS terminal and CD to the .\bicep directory where the main.bicep file resides.
+    - objectID - this is your user object ID in Azure AD. You will need to get this manually. Use Get-AzADUser -UserPrincipleName 'YOUR UPN'
+    - tenantID - this is the ID of your Azure AD Tenant. You will need to get this manually. Use Get-AzTenant
+3. Open up a PS terminal and cd to the .\bicep directory where the main.bicep file resides.
 4. Login to Azure with login-azAccount. Ensure that once you are logged in, you are in the correct subscription context.
-5. 
+5. By default the deployment is scoped at the subscription level. Deploy Template using the following command:
+    - New-AzSubscriptionDeployment -Location australiaeast TemplateFile main.bicep
+    - Once the deployment has finished, check in Azure for the resource group and resources. You should find a single RG and 11 resources.
+6. Navigate to the Automation acocunt that was just provisioned and create a RunAs Account. Whilst in the Account, create a hybrid worker group.
+7. Select and existing or Provision a virtual machine in Azure that become the Hybrid Worker.
+    - You can add it  to worker Group by installing the extension. [See here for more info](https://docs.microsoft.com/en-us/azure/automation/extension-based-hybrid-runbook-worker-install?tabs=windows)  
+    - Once the VM is online, connect to it and install the AZ PS Modules.
+8. Modify RBAC on subscription, KV and Storage accounts. See the table below for specifics.
+9. Make the following changes to the runbook constants
+    - Update lines: 51-57 with specifics on the provisioned storage account.
+10. The runbook needs to mount your Azure File share, the easiest way to do this is to grab the connection snippet from the storage account itself. [Read how to, here.](https://docs.microsoft.com/en-us/azure/storage/files/storage-how-to-use-files-windows#using-an-azure-file-share-with-windows)
+11. Test it out
+
+## Permissions Table
