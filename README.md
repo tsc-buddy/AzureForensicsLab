@@ -30,9 +30,15 @@ This guide assumes that you already have Azure Powershell installed and ready fo
     - You can add it  to worker Group by installing the extension. [See here for more info](https://docs.microsoft.com/en-us/azure/automation/extension-based-hybrid-runbook-worker-install?tabs=windows)  
     - Once the VM is online, connect to it and install the AZ PS Modules.
 8. Modify RBAC on subscription, KV and Storage accounts. See the table below for specifics.
+    - Note the Run As account will permissions over all subscriptions containing virtual machines that you may wish to target this runbook at. See the table below for specifics.
 9. Make the following changes to the runbook constants
-    - Update lines: 51-57 with specifics on the provisioned storage account.
+    - Update lines: 51-57 with specifics on the provisioned storage accounts, keyvaults.
 10. The runbook needs to mount your Azure File share, the easiest way to do this is to grab the connection snippet from the storage account itself. [Read how to, here.](https://docs.microsoft.com/en-us/azure/storage/files/storage-how-to-use-files-windows#using-an-azure-file-share-with-windows)
-11. Test it out
+    - Replace lines  83-91 with your file share connection from the linked articles steps above.
+    Save and Publish.
+11. Test it out. Trigger the run book, provide the follow details for the target VM.
+    - Subscription ID
+    - Resource Group Name
+    - VM Name
 
 ## Permissions Table
