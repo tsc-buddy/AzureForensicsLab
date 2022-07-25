@@ -42,3 +42,5 @@ This guide assumes that you already have Azure Powershell installed and ready fo
     - VM Name
 
 ## Permissions Table
+
+I am currently working thorugh a least priviledged model as of July 2022 for this scenario with some customers. Once complete, I shall publish the table here.
